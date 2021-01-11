@@ -40,12 +40,13 @@ program
     )
     .option('-g, --glob <path>', 'Glob pattern of themes to bundle.')
     .option('-d, --debug', 'Enable logging of debugging information.')
-    .action(({ config, debug, glob }) => {
+    .option('-m, --minify', 'Force minification of bundles')
+    .action(({ config, debug, glob, minify }) => {
         if (debug) {
             logger.level = 5;
         }
 
-        require('./lib/bundle')(config, glob).catch(logger.error);
+        require('./lib/bundle')(config, glob, minify).catch(logger.error);
     });
 
 program.parse(process.argv);
